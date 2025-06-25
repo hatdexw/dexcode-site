@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DexCode - Inovação e qualidade</title>
-  <link rel="icon" href="dexlogowhite.png" type="image/png" sizes="196x196" />
+  <title>DexCode - Inovação e Qualidade</title>
+  <link rel="icon" href="img/dexlogowhite.png" type="image/png" sizes="196x196" />
 
-  <!-- Tailwind -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -20,7 +20,8 @@
           animation: {
             fadeIn: "fadeIn 1s ease-out",
             slideIn: "slideIn 0.4s ease-out forwards",
-            fadeOverlay: "fadeOverlay 0.3s ease-out"
+            fadeOverlay: "fadeOverlay 0.3s ease-out",
+            fadeUp: "fadeUp 0.8s ease-out both"
           },
           keyframes: {
             fadeIn: {
@@ -34,6 +35,10 @@
             fadeOverlay: {
               '0%': { opacity: '0' },
               '100%': { opacity: '0.6' }
+            },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(40px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
             }
           }
         }
@@ -41,101 +46,87 @@
     };
   </script>
 
-  <!-- Lucide Icons CDN -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Fontes -->
+  <!-- Fontes Google -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Aplica tema salvo antes do carregamento -->
+  <!-- Aplicar tema salvo antes de carregar -->
   <script>
     if (localStorage.getItem("theme") === "dark") {
       document.documentElement.classList.add("dark");
     }
   </script>
 </head>
-<body class="bg-pink-50 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+<body class="bg-pink-50 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 transition-colors duration-300 font-ui scroll-smooth">
 
-  <!-- Overlay -->
+  <!-- Overlay escuro -->
   <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-500 z-40"></div>
 
   <!-- Sidebar -->
-  <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 transform -translate-x-full transition-transform duration-500 z-50 shadow-lg">
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 transform -translate-x-full transition-transform duration-500 z-50 shadow-lg">
     <div class="p-6 space-y-6 animate-slideIn h-full flex flex-col">
       <div class="flex justify-between items-center">
         <span class="text-lg font-semibold">Menu</span>
         <button id="closeSidebar" class="text-2xl">&times;</button>
       </div>
-      <nav class="flex flex-col gap-6">
-        <a href="#sobre" class="hover:underline">Sobre</a>
-        <a href="#projetos" class="hover:underline">Projetos</a>
-        <a href="#equipe" class="hover:underline">Equipe</a>
-        <a href="#certificacoes" class="hover:underline">Certificações</a>
+      <nav class="flex flex-col gap-4">
+        <a href="#sobre" class="hover:text-pink-400 transition">Sobre</a>
+        <a href="#projetos" class="hover:text-pink-400 transition">Projetos</a>
+        <a href="#equipe" class="hover:text-pink-400 transition">Equipe</a>
+        <a href="#certificacoes" class="hover:text-pink-400 transition">Certificações</a>
         <button id="theme-toggle-sidebar" class="text-xl self-start">🌙</button>
       </nav>
     </div>
-  </div>
+  </aside>
 
   <!-- Navbar fixa -->
-  <header id="navbar" class="fixed top-0 left-0 w-full bg-pink-50 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-100 z-40 flex items-center justify-between px-6 py-4 font-ui transition-shadow">
+  <header id="navbar" class="fixed top-0 left-0 w-full bg-pink-50/80 dark:bg-zinc-900/80 backdrop-blur text-zinc-800 dark:text-zinc-100 z-40 flex items-center justify-between px-6 py-4 font-ui transition-shadow">
     <div class="flex items-center gap-2">
-      <img src="dexlogo.png" alt="Dexcode Logo" class="h-8 w-auto">
-      <span class="text-lg font-medium font-semibold">DexCode</span>
+      <img src="img/dexlogo.png" alt="Dexcode Logo" class="h-12 w-auto">
+      <span class="text-2xl font-semibold">DexCode</span>
     </div>
 
-    <div class="hidden md:flex items-center gap-4">
-      <a href="#sobre" class="text-sm font-medium bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 rounded-md font-ui font-semibold hover:opacity-90 transition">Sobre</a>
-      <a href="#projetos" class="text-sm font-medium bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 rounded-md font-ui font-semibold hover:opacity-90 transition">Projetos</a>
-      <a href="#equipe" class="text-sm font-medium bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 rounded-md font-ui font-semibold hover:opacity-90 transition">Equipe</a>
-      <a href="#certificacoes" class="text-sm font-medium bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 rounded-md font-ui font-semibold hover:opacity-90 transition">Certificações</a>
+    <nav class="hidden md:flex items-center gap-4">
+      <a href="#sobre" class="nav-btn">Sobre</a>
+      <a href="#projetos" class="nav-btn">Projetos</a>
+      <a href="#equipe" class="nav-btn">Equipe</a>
+      <a href="#certificacoes" class="nav-btn">Certificações</a>
       <button id="theme-toggle" class="text-xl hover:scale-110 transition" title="Alternar tema">🌙</button>
-    </div>
+    </nav>
 
-    <!-- Botão hambúrguer -->
+    <!-- Botão mobile -->
     <button id="hamburger" class="md:hidden text-3xl">☰</button>
   </header>
 
-  <!-- Botão de voltar ao topo -->
-  <button id="backToTop" class="fixed bottom-6 right-6 bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 p-3 rounded-full shadow-lg hover:scale-110 transition hidden z-50" title="Voltar ao topo">
-    ↑
-  </button>
-
-  <!-- Compensar header fixo -->
+  <!-- Compensação da navbar -->
   <div class="h-20"></div>
 
-
-
   <!-- Hero -->
-  <main class="text-center px-4 py-20 max-w-screen-md mx-auto animate-fadeIn">
-    <h1 class="text-4xl sm:text-5xl md:text-6xl font-title font-semibold mb-8 leading-tight">
-      Um compromisso com a inovação e <br class="hidden sm:inline"> a qualidade
-    </h1>
-    <p class="text-2xl max-w-2xl mx-auto text-zinc-700 dark:text-zinc-300 font-title mb-8">
+  <section class="text-center px-4 py-20 max-w-4xl mx-auto animate-fadeUp">
+    <h1 class="text-5xl md:text-8xl font-title font-semibold mb-8 leading-tight">Um compromisso<br> com a inovação e a qualidade</h1>
+    <p class="text-2xl max-w-2xl mx-auto text-zinc-700 dark:text-zinc-300 mb-8 font-title">
       A DexCode transforma criatividade em funcionalidade, desenvolvendo soluções tecnológicas que inspiram, inovam e fazem a diferença.
     </p>
-    <div class="mb-8">
-      <a href="#sobre" class="bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 rounded-md font-ui font-semibold hover:opacity-90 transition">
-        Sobre
-      </a>
-    </div>
-  </main>
+    <a href="#sobre" class="bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-3 rounded-md font-semibold hover:opacity-90 transition">Saiba mais</a>
+  </section>
 
   <!-- Projetos -->
   <section id="projetos" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp">
     <h2 class="text-4xl font-title font-semibold mb-12 text-zinc-800 dark:text-zinc-100">Projetos</h2>
     <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4">
-      <!-- Projetos cards -->
       <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-2xl shadow-md hover:scale-105 transition-transform">
         <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Sistema de Chamados</h3>
-        <p class="text-sm text-white dark:text-zinc-900">Aplicativo tipo GLPI com autenticação e controle.</p>
+        <p class="text-sm text-white dark:text-zinc-900">Aplicação tipo GLPI com painel de controle e autenticação.</p>
       </div>
       <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-2xl shadow-md hover:scale-105 transition-transform">
         <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Painel de Impressoras HP</h3>
-        <p class="text-sm text-white dark:text-zinc-900">Dashboard com tinta e status.</p>
+        <p class="text-sm text-white dark:text-zinc-900">Dashboard com status, tinta e histórico em localStorage.</p>
       </div>
       <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-2xl shadow-md hover:scale-105 transition-transform">
         <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Controle de Finanças</h3>
-        <p class="text-sm text-white dark:text-zinc-900">Planilha com cálculo e gráficos.</p>
+        <p class="text-sm text-white dark:text-zinc-900">Planilha moderna com saldo automático e gráficos mensais.</p>
       </div>
     </div>
   </section>
@@ -143,92 +134,107 @@
   <!-- Equipe -->
   <section id="equipe" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp">
     <h2 class="text-4xl font-title font-semibold mb-12 text-zinc-800 dark:text-zinc-100">Equipe</h2>
-    <div class="max-w-5xl mx-auto px-4">
-      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8 bg-zinc-800 dark:bg-zinc-100 p-8 rounded-2xl shadow-md text-left">
-        <img src="Arthur.jpg" alt="Arthur" class="w-40 h-40 rounded-full border-4 border-zinc-200 dark:border-zinc-700 object-cover">
-        <div class="px-12">
-          <h3 class="text-2xl font-semibold text-white dark:text-zinc-900 mb-2 text-center p-6">Arthur Henrique</h3>
-          <p class="text-md text-white dark:text-zinc-900 leading-relaxed text-center px-">
-            Desenvolvedor Full Stack com foco em soluções web modernas, integração de sistemas e interfaces acessíveis.
-          </p>
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="flex flex-col sm:flex-row items-center gap-6 bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-md text-left">
+        <img src="img/Arthur.jpg" alt="Membro da equipe" class="w-32 h-32 rounded-full border-4 border-zinc-200 dark:border-zinc-700 object-cover">
+        <div class="text-white dark:text-zinc-900">
+          <h3 class="text-2xl font-semibold mb-2">Arthur Henrique</h3>
+          <p class="text-md">Desenvolvedor Full Stack com foco em soluções web modernas, integração de sistemas e interfaces acessíveis.</p>
         </div>
       </div>
     </div>
+    
   </section>
 
-  <!-- Certificacoes -->
-  <section id="certificacoes" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp">
-    <h2 class="text-4xl font-title font-semibold mb-12 text-zinc-800 dark:text-zinc-100">Certificações</h2>
-    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 px-4">
-      <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-sm">
-        <h3 class="text-lg font-semibold mb-2 text-white dark:text-zinc-900">HTML, CSS e JS</h3>
-        <p class="text-sm text-white dark:text-zinc-900">...</p>
-      </div>
-      <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-sm">
-        <h3 class="text-lg font-semibold mb-2 text-white dark:text-zinc-900">PHP LARAVEL</h3>
-        <p class="text-sm text-white dark:text-zinc-900">...</p>
-      </div>
-      <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-sm">
-        <h3 class="text-lg font-semibold mb-2 text-white dark:text-zinc-900">Git e Versionamento</h3>
-        <p class="text-sm text-white dark:text-zinc-900">...</p>
-      </div>
-      <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-sm">
-        <h3 class="text-lg font-semibold mb-2 text-white dark:text-zinc-900">...</h3>
-        <p class="text-sm text-white dark:text-zinc-900">...</p>
-      </div>
-    </div>
-  </section>
+  <!-- Botão voltar ao topo -->
+  <button id="backToTop" class="fixed bottom-6 right-6 bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 p-3 rounded-full shadow-lg hover:scale-110 transition hidden z-50" title="Voltar ao topo">↑</button>
 
-  <!-- Footer -->
-  <footer class="bg-pink-50 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 px-6 py-12 mt-12 text-center">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-      <div>
-        <img src="dexlogo.png" alt="Dexcode Logo" class="h-6 mx-auto mb-2">
-        <h2 class="font-semibold text-lg mb-1">DexCode</h2>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2 text-zinc-800 dark:text-zinc-100">Sobre</h3>
-        <ul class="space-y-1 text-sm text-zinc-700 dark:text-zinc-300">
-          <li><a href="#equipe" class="hover:underline">Equipe</a></li>
-          <li><a href="#projetos" class="hover:underline">Projetos</a></li>
-          <li><a href="#certificacoes" class="hover:underline">Certificações</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2 text-zinc-800 dark:text-zinc-100">Privacidade</h3>
-        <ul class="space-y-1 text-sm text-zinc-700 dark:text-zinc-300">
-          <li><a href="#" class="hover:underline">Política de Privacidade</a></li>
-          <li><a href="#" class="hover:underline">Termos e Condições</a></li>
-          <li><a href="#" class="hover:underline">Contate-nos</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-semibold mb-2 text-zinc-800 dark:text-zinc-100">Social</h3>
-        <ul class="space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
-          <li class="flex items-center justify-center gap-2"><i data-lucide="linkedin" class="w-4 h-4"></i><a href="#">Linkedin</a></li>
-          <li class="flex items-center justify-center gap-2"><i data-lucide="instagram" class="w-4 h-4"></i><a href="#">Instagram</a></li>
-          <li class="flex items-center justify-center gap-2"><i data-lucide="github" class="w-4 h-4"></i><a href="#">Github</a></li>
-        </ul>
-      </div>
+
+  <!-- Continuando com Certificações -->
+<section id="certificacoes" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp">
+  <h2 class="text-4xl font-title font-semibold mb-12 text-zinc-800 dark:text-zinc-100">Certificações</h2>
+  <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 px-4">
+    <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform">
+      <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">HTML, CSS e JavaScript</h3>
+      <p class="text-sm text-white dark:text-zinc-900">Fundamentos sólidos em desenvolvimento web front-end moderno.</p>
     </div>
-    <div class="text-center text-xs text-zinc-500 dark:text-zinc-400 mt-10">
-      Copyright © 2025 - DexCode
+    <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform">
+      <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">PHP com Laravel</h3>
+      <p class="text-sm text-white dark:text-zinc-900">Experiência em aplicações back-end robustas com Laravel.</p>
     </div>
-  </footer>
+    <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform">
+      <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Versionamento com Git</h3>
+      <p class="text-sm text-white dark:text-zinc-900">Controle de código eficiente com Git e GitHub.</p>
+    </div>
+    <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform">
+      <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">UX/UI Design</h3>
+      <p class="text-sm text-white dark:text-zinc-900">Criação de interfaces intuitivas com foco em experiência do usuário.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer caprichado -->
+<footer class="bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-12 mt-12 text-center animate-fadeUp">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-left">
+    <div>
+      <img src="img/dexlogo.png" alt="Dexcode Logo" class="h-8 mb-3">
+      <h2 class="text-lg font-semibold">DexCode</h2>
+      <p class="text-sm mt-2">Soluções tecnológicas que inspiram e transformam.</p>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-3">Navegação</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#sobre" class="hover:underline">Sobre</a></li>
+        <li><a href="#projetos" class="hover:underline">Projetos</a></li>
+        <li><a href="#equipe" class="hover:underline">Equipe</a></li>
+        <li><a href="#certificacoes" class="hover:underline">Certificações</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-3">Legal</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#" class="hover:underline">Política de Privacidade</a></li>
+        <li><a href="#" class="hover:underline">Termos de Uso</a></li>
+        <li><a href="#" class="hover:underline">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-3">Social</h3>
+      <ul class="space-y-3 text-sm">
+        <li class="flex items-center gap-2">
+          <i data-lucide="linkedin" class="w-4 h-4"></i>
+          <a href="#" class="hover:underline">LinkedIn</a>
+        </li>
+        <li class="flex items-center gap-2">
+          <i data-lucide="instagram" class="w-4 h-4"></i>
+          <a href="https://instagram.com/art_wmv" class="hover:underline">Instagram</a>
+        </li>
+        <li class="flex items-center gap-2">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <a href="#" class="hover:underline">GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="text-xs mt-10 text-zinc-400 dark:text-zinc-600">&copy; 2025 DexCode. Todos os direitos reservados.</div>
+</footer>
 
   <!-- Scripts -->
   <script>
- lucide.createIcons();
-
-    const hamburger = document.getElementById('hamburger');
+    lucide.createIcons();
     const sidebar = document.getElementById('sidebar');
+    const hamburger = document.getElementById('hamburger');
     const closeSidebar = document.getElementById('closeSidebar');
-    const backToTop = document.getElementById('backToTop');
     const overlay = document.getElementById('overlay');
+    const backToTop = document.getElementById('backToTop');
+    const navbar = document.getElementById('navbar');
     const html = document.documentElement;
     const themeToggle = document.getElementById('theme-toggle');
     const themeToggleSidebar = document.getElementById('theme-toggle-sidebar');
-    const navbar = document.getElementById('navbar');
+
+    hamburger.addEventListener('click', () => toggleSidebar(true));
+    closeSidebar.addEventListener('click', () => toggleSidebar(false));
+    overlay.addEventListener('click', () => toggleSidebar(false));
 
     function toggleSidebar(open) {
       if (open) {
@@ -241,10 +247,6 @@
         overlay.classList.remove('opacity-60');
       }
     }
-
-    hamburger.addEventListener('click', () => toggleSidebar(true));
-    closeSidebar.addEventListener('click', () => toggleSidebar(false));
-    overlay.addEventListener('click', () => toggleSidebar(false));
 
     window.addEventListener('scroll', () => {
       if (window.scrollY > 200) {
@@ -268,5 +270,12 @@
     themeToggle.addEventListener('click', toggleTheme);
     themeToggleSidebar.addEventListener('click', toggleTheme);
   </script>
+
+  <style>
+    .nav-btn {
+      @apply text-sm font-medium bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 rounded-md font-ui font-semibold hover:opacity-90 transition;
+    }
+  </style>
+
 </body>
 </html>
