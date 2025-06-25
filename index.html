@@ -50,7 +50,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Fontes Google -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- Aplicar tema salvo antes de carregar -->
   <script>
@@ -58,203 +58,292 @@
       document.documentElement.classList.add("dark");
     }
   </script>
+
+  <style>
+    /* Para foco acessível com mais contraste */
+    .focus-outline:focus {
+      outline: 3px solid #db2777; /* pink-600 */
+      outline-offset: 3px;
+    }
+    /* Botão tema */
+    .theme-btn {
+      background-color: #27272a; /* zinc-800 */
+      color: #f4f4f5; /* zinc-100 */
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.375rem; /* rounded-md */
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .theme-btn:hover {
+      background-color: #ec4899; /* pink-500 */
+      color: white;
+    }
+    .theme-btn.dark {
+      background-color: #f4f4f5; /* zinc-100 */
+      color: #27272a; /* zinc-800 */
+    }
+    .theme-btn.dark:hover {
+      background-color: #db2777; /* pink-600 */
+      color: white;
+    }
+
+    /* Cursor pointer em links e botões */
+    a, button {
+      cursor: pointer;
+    }
+
+    /* Texto com melhor contraste no claro */
+    .text-zinc-900 {
+      color: #18181b;
+    }
+  </style>
 </head>
-<body class="bg-pink-50 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 transition-colors duration-300 font-ui scroll-smooth">
+<body class="bg-pink-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100 transition-colors duration-300 font-ui scroll-smooth">
 
   <!-- Overlay escuro -->
   <div id="overlay" class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-500 z-40"></div>
 
   <!-- Sidebar -->
-  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 transform -translate-x-full transition-transform duration-500 z-50 shadow-lg">
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 transform -translate-x-full transition-transform duration-500 z-50 shadow-lg" aria-hidden="true" tabindex="-1" aria-label="Menu lateral">
     <div class="p-6 space-y-6 animate-slideIn h-full flex flex-col">
       <div class="flex justify-between items-center">
         <span class="text-lg font-semibold">Menu</span>
-        <button id="closeSidebar" class="text-2xl">&times;</button>
+        <button id="closeSidebar" class="text-2xl focus-outline" aria-label="Fechar menu lateral">&times;</button>
       </div>
       <nav class="flex flex-col gap-4">
-        <a href="#sobre" class="hover:text-pink-400 transition">Sobre</a>
-        <a href="#projetos" class="hover:text-pink-400 transition">Projetos</a>
-        <a href="#equipe" class="hover:text-pink-400 transition">Equipe</a>
-        <a href="#certificacoes" class="hover:text-pink-400 transition">Certificações</a>
-        <button id="theme-toggle-sidebar" class="text-xl self-start">🌙</button>
+        <a href="#sobre" class="hover:text-pink-400 transition focus-outline" tabindex="0">Sobre</a>
+        <a href="#projetos" class="hover:text-pink-400 transition focus-outline" tabindex="0">Projetos</a>
+        <a href="#equipe" class="hover:text-pink-400 transition focus-outline" tabindex="0">Equipe</a>
+        <a href="#certificacoes" class="hover:text-pink-400 transition focus-outline" tabindex="0">Certificações</a>
+        <button id="theme-toggle-sidebar" class="theme-btn mt-4 self-start" aria-label="Alternar tema">🌙</button>
       </nav>
     </div>
   </aside>
 
   <!-- Navbar fixa -->
-  <header id="navbar" class="fixed top-0 left-0 w-full bg-pink-50/80 dark:bg-zinc-900/80 backdrop-blur text-zinc-800 dark:text-zinc-100 z-40 flex items-center justify-between px-6 py-4 font-ui transition-shadow">
+  <header id="navbar" class="fixed top-0 left-0 w-full bg-pink-50/80 dark:bg-zinc-900/80 backdrop-blur text-zinc-900 dark:text-zinc-100 z-40 flex items-center justify-between px-6 py-4 font-ui transition-shadow" role="banner">
     <div class="flex items-center gap-2">
-      <img src="dexlogo.png" alt="Dexcode Logo" class="h-12 w-auto">
-      <span class="text-2xl font-semibold">DexCode</span>
+      <img src="dexlogo.png" alt="Dexcode Logo" class="h-12 w-auto" />
+      <span class="text-2xl font-bold select-none">DexCode</span>
     </div>
 
     <nav class="hidden md:flex items-center gap-4">
-      <a href="#sobre" class="nav-btn">Sobre</a>
-      <a href="#projetos" class="nav-btn">Projetos</a>
-      <a href="#equipe" class="nav-btn">Equipe</a>
-      <a href="#certificacoes" class="nav-btn">Certificações</a>
+      <a href="#sobre" class="nav-btn font-semibold hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-400 rounded">Sobre</a>
+      <a href="#projetos" class="nav-btn font-semibold hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-400 rounded">Projetos</a>
+      <a href="#equipe" class="nav-btn font-semibold hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-400 rounded">Equipe</a>
+      <a href="#certificacoes" class="nav-btn font-semibold hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-400 rounded">Certificações</a>
       <button id="theme-toggle" class="text-xl hover:scale-110 transition" title="Alternar tema">🌙</button>
     </nav>
 
     <!-- Botão mobile -->
-    <button id="hamburger" class="md:hidden text-3xl">☰</button>
+    <button id="hamburger" class="md:hidden text-3xl focus:outline-none" aria-label="Abrir menu">☰</button>
   </header>
 
   <!-- Compensação da navbar -->
   <div class="h-20"></div>
 
   <!-- Hero -->
-  <section class="text-center px-4 py-20 max-w-4xl mx-auto animate-fadeUp">
-    <h1 class="text-5xl md:text-8xl font-title font-semibold mb-8 leading-tight">Um compromisso<br> com a inovação e a qualidade</h1>
-    <p class="text-2xl max-w-2xl mx-auto text-zinc-700 dark:text-zinc-300 mb-8 font-title">
+  <section id="sobre" class="text-center px-4 py-20 max-w-4xl mx-auto animate-fadeUp" tabindex="0" aria-label="Seção sobre">
+    <h1 class="text-5xl md:text-8xl font-title font-bold mb-8 leading-tight">Um compromisso<br> com a inovação e a qualidade</h1>
+    <p class="text-2xl max-w-2xl mx-auto text-zinc-900 dark:text-zinc-300 mb-8 font-title font-medium">
       A DexCode transforma criatividade em funcionalidade, desenvolvendo soluções tecnológicas que inspiram, inovam e fazem a diferença.
     </p>
-    <a href="#sobre" class="bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-3 rounded-md font-semibold hover:opacity-90 transition">Fale Conosco!</a>
+    <a href="https://api.whatsapp.com/send/?phone=44988164030&text&type=phone_number&app_absent=" target=”_blank” class="bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-8 py-4 rounded-lg font-semibold hover:bg-pink-600 dark:hover:bg-pink-400 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-pink-400 focus:ring-offset-2">
+      Fale Conosco!
+    </a>
   </section>
 
   <!-- Projetos -->
-  <section id="projetos" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp">
-    <h2 class="text-4xl font-title font-semibold mb-12 text-zinc-800 dark:text-zinc-100">Projetos</h2>
+  <section id="projetos" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp" tabindex="0" aria-label="Seção projetos">
+    <h2 class="text-4xl font-title font-bold mb-12 text-zinc-900 dark:text-zinc-100">Projetos</h2>
     <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4">
-      <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-2xl shadow-md hover:scale-105 transition-transform">
+      <article class="bg-zinc-900 dark:bg-zinc-100 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-pink-400 cursor-pointer">
         <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Sistema de Chamados</h3>
         <p class="text-sm text-white dark:text-zinc-900">Aplicação tipo GLPI com painel de controle e autenticação.</p>
-      </div>
-      <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-2xl shadow-md hover:scale-105 transition-transform">
+      </article>
+      <article class="bg-zinc-900 dark:bg-zinc-100 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-pink-400 cursor-pointer">
         <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Painel de Impressoras HP</h3>
         <p class="text-sm text-white dark:text-zinc-900">Dashboard com status, tinta e histórico em localStorage.</p>
-      </div>
-      <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-2xl shadow-md hover:scale-105 transition-transform">
+      </article>
+      <article class="bg-zinc-900 dark:bg-zinc-100 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-pink-400 cursor-pointer">
         <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Controle de Finanças</h3>
         <p class="text-sm text-white dark:text-zinc-900">Planilha moderna com saldo automático e gráficos mensais.</p>
-      </div>
+      </article>
     </div>
   </section>
 
   <!-- Equipe -->
-  <section id="equipe" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp">
-    <h2 class="text-4xl font-title font-semibold mb-12 text-zinc-800 dark:text-zinc-100">Equipe</h2>
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="flex flex-col sm:flex-row items-center gap-6 bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-md text-left">
-        <img src="Arthur.jpg" alt="Membro da equipe" class="w-32 h-32 rounded-full border-4 border-zinc-200 dark:border-zinc-700 object-cover">
-        <div class="text-white dark:text-zinc-900">
-          <h3 class="text-2xl font-semibold mb-2">Arthur Henrique</h3>
-          <p class="text-md">Desenvolvedor Full Stack com foco em soluções web modernas, integração de sistemas e interfaces acessíveis.</p>
-        </div>
+  <!-- Equipe -->
+<section id="equipe" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp" tabindex="0" aria-label="Seção equipe">
+  <h2 class="text-4xl font-title font-bold mb-12 text-zinc-900 dark:text-zinc-100">Equipe</h2>
+  <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row sm:justify-center sm:gap-6">
+    <!-- Membro 1 -->
+    <div class="flex flex-col items-center bg-zinc-900 dark:bg-zinc-100 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 text-left max-w-sm mb-6 sm:mb-0 cursor-pointer">
+      <img src="Arthur.jpg" alt="Arthur Henrique" class="w-32 h-32 rounded-full border-4 border-zinc-200 dark:border-zinc-700 object-cover" />
+      <div class="mt-4 text-white dark:text-zinc-900">
+        <h3 class="text-2xl font-bold mb-2 text-center text-zinc-900 dark:text-zinc-900">Arthur Henrique</h3>
+        <p class="text-md text-center font-medium">Desenvolvedor Full Stack com foco em soluções web modernas e interfaces acessíveis.</p>
       </div>
     </div>
-    
-  </section>
 
-  <!-- Botão voltar ao topo -->
-  <button id="backToTop" class="fixed bottom-6 right-6 bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 p-3 rounded-full shadow-lg hover:scale-110 transition hidden z-50" title="Voltar ao topo">↑</button>
-
-
-  <!-- Continuando com Certificações -->
-<section id="certificacoes" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp">
-  <h2 class="text-4xl font-title font-semibold mb-12 text-zinc-800 dark:text-zinc-100">Certificações</h2>
-  <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 px-4">
-    <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform">
-      <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">HTML, CSS e JavaScript</h3>
-      <p class="text-sm text-white dark:text-zinc-900">Fundamentos sólidos em desenvolvimento web front-end moderno.</p>
-    </div>
-    <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform">
-      <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">PHP com Laravel</h3>
-      <p class="text-sm text-white dark:text-zinc-900">Experiência em aplicações back-end robustas com Laravel.</p>
-    </div>
-    <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform">
-      <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Versionamento com Git</h3>
-      <p class="text-sm text-white dark:text-zinc-900">Controle de código eficiente com Git e GitHub.</p>
-    </div>
-    <div class="bg-zinc-800 dark:bg-zinc-100 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform">
-      <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">UX/UI Design</h3>
-      <p class="text-sm text-white dark:text-zinc-900">Criação de interfaces intuitivas com foco em experiência do usuário.</p>
+    <!-- Membro 2 -->
+    <div class="flex flex-col items-center bg-zinc-900 dark:bg-zinc-100 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 text-left max-w-sm mb-6 sm:mb-0 cursor-pointer">
+      <img src="Eduardo.jpg" alt="Eduardo Fidelis" class="w-32 h-32 rounded-full border-4 border-zinc-200 dark:border-zinc-700 object-cover" />
+      <div class="mt-4 text-white dark:text-zinc-900">
+        <h3 class="text-2xl font-bold mb-2 text-center text-zinc-900 dark:text-zinc-900">Eduardo Fidelis</h3>
+        <p class="text-md text-center font-medium">Desenvolvedor full stack com foco em automações e aplicações web.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Footer caprichado -->
-<footer class="bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-12 mt-12 text-center animate-fadeUp">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-left">
-    <div>
-      <img src="dexlogo.png" alt="Dexcode Logo" class="h-8 mb-3">
-      <h2 class="text-lg font-semibold">DexCode</h2>
-      <p class="text-sm mt-2">Soluções tecnológicas que inspiram e transformam.</p>
-    </div>
-    <div>
-      <h3 class="font-semibold mb-3">Navegação</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="#sobre" class="hover:underline">Sobre</a></li>
-        <li><a href="#projetos" class="hover:underline">Projetos</a></li>
-        <li><a href="#equipe" class="hover:underline">Equipe</a></li>
-        <li><a href="#certificacoes" class="hover:underline">Certificações</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="font-semibold mb-3">Legal</h3>
-      <ul class="space-y-2 text-sm">
-        <li><a href="#" class="hover:underline">Política de Privacidade</a></li>
-        <li><a href="#" class="hover:underline">Termos de Uso</a></li>
-        <li><a href="#" class="hover:underline">Contato</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="font-semibold mb-3">Social</h3>
-      <ul class="space-y-3 text-sm">
-        <li class="flex items-center gap-2">
-          <i data-lucide="linkedin" class="w-4 h-4"></i>
-          <a href="#" class="hover:underline">LinkedIn</a>
-        </li>
-        <li class="flex items-center gap-2">
-          <i data-lucide="instagram" class="w-4 h-4"></i>
-          <a href="https://instagram.com/art_wmv" class="hover:underline">Instagram</a>
-        </li>
-        <li class="flex items-center gap-2">
-          <i data-lucide="github" class="w-4 h-4"></i>
-          <a href="#" class="hover:underline">GitHub</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="text-xs mt-10 text-zinc-400 dark:text-zinc-600">&copy; 2025 DexCode. Todos os direitos reservados.</div>
-</footer>
 
-  <!-- Scripts -->
+  <!-- Certificações -->
+  <section id="certificacoes" class="py-20 bg-pink-50 dark:bg-zinc-900 text-center animate-fadeUp" tabindex="0" aria-label="Seção certificações">
+    <h2 class="text-4xl font-title font-bold mb-12 text-zinc-900 dark:text-zinc-100">Certificações</h2>
+    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 px-4">
+      <article class="bg-zinc-900 dark:bg-zinc-100 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-pink-400 cursor-pointer">
+        <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">HTML, CSS e JavaScript</h3>
+        <p class="text-sm text-white dark:text-zinc-900">Fundamentos sólidos em desenvolvimento web front-end moderno.</p>
+      </article>
+      <article class="bg-zinc-900 dark:bg-zinc-100 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-pink-400 cursor-pointer">
+        <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">PHP com Laravel</h3>
+        <p class="text-sm text-white dark:text-zinc-900">Experiência em aplicações back-end robustas com Laravel.</p>
+      </article>
+      <article class="bg-zinc-900 dark:bg-zinc-100 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-pink-400 cursor-pointer">
+        <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">Versionamento com Git</h3>
+        <p class="text-sm text-white dark:text-zinc-900">Controle de código eficiente com Git e GitHub.</p>
+      </article>
+      <article class="bg-zinc-900 dark:bg-zinc-100 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-shadow transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-pink-400 cursor-pointer">
+        <h3 class="text-xl font-semibold mb-2 text-white dark:text-zinc-900">UX/UI Design</h3>
+        <p class="text-sm text-white dark:text-zinc-900">Criação de interfaces intuitivas com foco em experiência do usuário.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-6 py-12 mt-12 text-center animate-fadeUp">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-left">
+      <div>
+        <img src="dexlogo.png" alt="Dexcode Logo" class="h-8 mb-3" />
+        <h2 class="text-lg font-semibold">DexCode</h2>
+        <p class="text-sm mt-2">Soluções tecnológicas que inspiram e transformam.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-3">Navegação</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#sobre" class="hover:underline focus-outline">Sobre</a></li>
+          <li><a href="#projetos" class="hover:underline focus-outline">Projetos</a></li>
+          <li><a href="#equipe" class="hover:underline focus-outline">Equipe</a></li>
+          <li><a href="#certificacoes" class="hover:underline focus-outline">Certificações</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-3">Legal</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:underline focus-outline">Política de Privacidade</a></li>
+          <li><a href="#" class="hover:underline focus-outline">Termos de Uso</a></li>
+          <li><a href="#" class="hover:underline focus-outline">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-3">Social</h3>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-center gap-2">
+            <i data-lucide="linkedin" class="w-4 h-4"></i>
+            <a href="https://www.linkedin.com/in/hatdexw/" target=”_blank” class="hover:underline focus-outline">LinkedIn</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="instagram" class="w-4 h-4"></i>
+            <a href="https://instagram.com/art_wmv" target=”_blank” class="hover:underline focus-outline" target="_blank" rel="noopener noreferrer">Instagram</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="github" class="w-4 h-4"></i>
+            <a href="https://github.com/hatdexw" target=”_blank” class="hover:underline focus-outline" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-8 text-sm">&copy; 2025 DexCode. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Botão voltar ao topo -->
+  <button id="backToTop" aria-label="Voltar ao topo" title="Voltar ao topo"
+    class="fixed bottom-6 right-6 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 p-3 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 hidden z-50 focus:outline-none focus:ring-4 focus:ring-pink-400 cursor-pointer">
+    <i data-lucide="arrow-up" class="w-6 h-6"></i>
+  </button>
+
   <script>
+    // Ativa os ícones do Lucide
     lucide.createIcons();
-    const sidebar = document.getElementById('sidebar');
+
+    // Toggle Sidebar Mobile
     const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
     const closeSidebar = document.getElementById('closeSidebar');
     const overlay = document.getElementById('overlay');
-    const backToTop = document.getElementById('backToTop');
-    const navbar = document.getElementById('navbar');
-    const html = document.documentElement;
+
+    function openSidebar() {
+      sidebar.classList.remove('-translate-x-full');
+      sidebar.setAttribute('aria-hidden', 'false');
+      overlay.style.opacity = '0.6';
+      overlay.style.pointerEvents = 'auto';
+      overlay.classList.add('fadeOverlay');
+      sidebar.focus();
+    }
+    function closeSidebarFunc() {
+      sidebar.classList.add('-translate-x-full');
+      sidebar.setAttribute('aria-hidden', 'true');
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+    }
+
+    hamburger.addEventListener('click', openSidebar);
+    closeSidebar.addEventListener('click', closeSidebarFunc);
+    overlay.addEventListener('click', closeSidebarFunc);
+
+    // Toggle tema dark/light
     const themeToggle = document.getElementById('theme-toggle');
     const themeToggleSidebar = document.getElementById('theme-toggle-sidebar');
+    const htmlEl = document.documentElement;
 
-    hamburger.addEventListener('click', () => toggleSidebar(true));
-    closeSidebar.addEventListener('click', () => toggleSidebar(false));
-    overlay.addEventListener('click', () => toggleSidebar(false));
+    function updateThemeIcon(button, theme) {
+      button.textContent = theme === 'dark' ? '☀️' : '🌙';
+      button.classList.toggle('dark', theme === 'dark');
+    }
 
-    function toggleSidebar(open) {
-      if (open) {
-        sidebar.classList.remove('-translate-x-full');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        overlay.classList.add('opacity-60');
+    function toggleTheme() {
+      if (htmlEl.classList.contains('dark')) {
+        htmlEl.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        updateThemeIcon(themeToggle, 'light');
+        updateThemeIcon(themeToggleSidebar, 'light');
       } else {
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('opacity-0', 'pointer-events-none');
-        overlay.classList.remove('opacity-60');
+        htmlEl.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        updateThemeIcon(themeToggle, 'dark');
+        updateThemeIcon(themeToggleSidebar, 'dark');
       }
     }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    themeToggleSidebar.addEventListener('click', toggleTheme);
+
+    // Inicializa o ícone do botão de tema conforme o tema salvo
+    updateThemeIcon(themeToggle, localStorage.getItem('theme') || 'light');
+    updateThemeIcon(themeToggleSidebar, localStorage.getItem('theme') || 'light');
+
+    // Botão voltar ao topo
+    const backToTop = document.getElementById('backToTop');
 
     window.addEventListener('scroll', () => {
       if (window.scrollY > 200) {
         backToTop.classList.remove('hidden');
-        navbar.classList.add('shadow-md');
       } else {
         backToTop.classList.add('hidden');
-        navbar.classList.remove('shadow-md');
       }
     });
 
@@ -262,20 +351,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    function toggleTheme() {
-      const isDark = html.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    }
-
-    themeToggle.addEventListener('click', toggleTheme);
-    themeToggleSidebar.addEventListener('click', toggleTheme);
   </script>
-
-  <style>
-    .nav-btn {
-      @apply text-sm font-medium bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-2 rounded-md font-ui font-semibold hover:opacity-90 transition;
-    }
-  </style>
 
 </body>
 </html>
